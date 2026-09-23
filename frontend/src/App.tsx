@@ -7,8 +7,8 @@ export function App() {
   return (
     <main className="container">
       <nav>
-        <Link to="/">Book List</Link>
-        <Link to="/add">Add Book</Link>
+        <Link to="/" data-cy="link-book-list">Book List</Link>
+        <Link to="/add" data-cy="link-add-book">Add Book</Link>
       </nav>
 
       <Routes>

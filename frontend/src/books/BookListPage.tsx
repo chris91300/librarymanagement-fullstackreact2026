@@ -67,29 +67,32 @@ export function BookListPage() {
             </tr>
           </thead>
           <tbody>
-            {books.map((book) => (
-              <tr className="book-item" key={book.id ?? `${book.title}-${book.author}`}>
-                <td>{book.title}</td>
-                <td>{book.author}</td>
-                <td>{book.available_copies}</td>
-                <td>{book.total_copies}</td>
-                <td>
-                  {book.id !== undefined && (
-                    <>
-                      <button type="button" onClick={() => void borrowBook(book.id!)}>
-                        Borrow
-                      </button>
-                      <button type="button" onClick={() => void returnBook(book.id!)}>
-                        Return
-                      </button>
-                      <button type="button" onClick={() => void deleteBook(book.id!)}>
-                        Delete
-                      </button>
-                    </>
-                  )}
-                </td>
-              </tr>
-            ))}
+            {books.map((book) => {
+              const bookTitle = book.title.replaceAll(" ", "-").toLowerCase();
+              return (
+                <tr className="book-item" key={book.id ?? `${book.title}-${book.author}`}>
+                  <td data-cy={`tr-book-${bookTitle}`}>{book.title}</td>
+                  <td>{book.author}</td>
+                  <td data-cy={`tr-book-${bookTitle}-available-copies`}>{book.available_copies}</td>
+                  <td>{book.total_copies}</td>
+                  <td>
+                    {book.id !== undefined && (
+                      <>
+                        <button type="button" onClick={() => void borrowBook(book.id!)} data-cy={`button-borrow-book-${bookTitle}`}>
+                          Borrow
+                        </button>
+                        <button type="button" onClick={() => void returnBook(book.id!)} data-cy={`button-return-book-${bookTitle}`}>
+                          Return
+                        </button>
+                        <button type="button" onClick={() => void deleteBook(book.id!)} data-cy={`button-delete-book-${bookTitle}`}>
+                          Delete
+                        </button>
+                      </>
+                    )}
+                  </td>
+                </tr>
+              )
+            })}
           </tbody>
         </table>
       ) : (
